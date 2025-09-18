@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error Log</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff5555;
+        }
+        #error-log {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .error-entry {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #3a3a3a;
+            border-left: 3px solid #ff5555;
+        }
+        .timestamp {
+            color: #aaaaaa;
+            font-size: 0.8em;
+        }
+        .message {
+            color: #ff8888;
+            font-weight: bold;
+        }
+        .stack {
+            color: #dddddd;
+            margin-top: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error Log</h1>
+    <div id="error-log"></div>
+
+    <script>
+        // Function to add an error to the log
+        function addErrorToLog(error) {
+            const errorLog = document.getElementById('error-log');
+            const errorEntry = document.createElement('div');
+            errorEntry.className = 'error-entry';
+            
+            const timestamp = document.createElement('div');
+            timestamp.className = 'timestamp';
+            timestamp.textContent = new Date().toISOString();
+            
+            const message = document.createElement('div');
+            message.className = 'message';
+            message.textContent = error.message || 'Unknown error';
+            
+            const stack = document.createElement('div');
+            stack.className = 'stack';
+            stack.textContent = error.stack || 'No stack trace available';
+            
+            errorEntry.appendChild(timestamp);
+            errorEntry.appendChild(message);
+            errorEntry.appendChild(stack);
+            
+            errorLog.appendChild(errorEntry);
+        }
+
+        // Check for errors in localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const errors = JSON.parse(localStorage.getItem('tradingAnimationErrors') || '[]');
+            errors.forEach(error => {
+                addErrorToLog(error);
+            });
+        });
+    </script>
+</body>
+</html>

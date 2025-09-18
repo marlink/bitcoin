@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Animation - Predictive Canvas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="dark-theme">
+        <div id="background-canvas">
+            <div class="trading-container">
+                <div class="panel-header">
+                    <h1>Trading Prediction Canvas</h1>
+                    <div class="controls">
+                        <button id="toggle-animation" class="control-button">
+                            <!-- <svg>...</svg> -->Pause Animation
+                        </button>
+                        <button id="fullscreen-toggle" class="control-button">
+                            <!-- <svg>...</svg> -->Enter Fullscreen
+                        </button>
+                        <button id="manual-trigger" class="control-button control-button-red">
+                            <!-- <svg>...</svg> -->Manually Trigger Animation
+                        </button>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="live-dot"></span>
+                        <span><strong>LIVE MARKET DATA</strong></span>
+                    </div>
+                </div>
+                
+                <div class="panels-container">
+                    <!-- Left Panel: Historical Data -->
+                    <div class="panel historical-panel">
+                        <div class="panel-title">
+                            <h3>Historical Data</h3>
+                            <span class="timeframe">Past 90 Days</span>
+                        </div>
+                        <div class="chart-container" id="historical-chart">
+                            <svg id="historical-svg"></svg>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="indicator">
+                                <span class="indicator-label">Trend:</span>
+                                <span class="indicator-value bullish">Bullish</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Panel: Current Candlestick -->
+                    <div class="panel current-panel">
+                        <div class="panel-title">
+                            <h3>Current Daily Candle</h3>
+                            <span class="timeframe" id="current-date"></span>
+                        </div>
+                        <div class="chart-container" id="current-chart">
+                            <svg id="current-svg"></svg>
+                            <div class="price-labels">
+                                <div class="price-label high" id="high-price">H: $0.00</div>
+                                <div class="price-label low" id="low-price">L: $0.00</div>
+                                <div class="price-label open" id="open-price">O: $0.00</div>
+                                <div class="price-label close" id="close-price">C: $0.00</div>
+                            </div>
+                        </div>
+                        <div class="volume-container">
+                            <div class="volume-bar" id="volume-bar"></div>
+                            <span class="volume-label">Volume</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel: Predictions -->
+                    <div class="panel prediction-panel">
+                        <div class="panel-title">
+                            <h3>AI Predictions</h3>
+                            <span class="timeframe">Next 5 Days</span>
+                        </div>
+                        <div class="chart-container" id="prediction-chart">
+                            <svg id="prediction-svg"></svg>
+                            <div class="confidence-overlay" id="confidence-overlay">
+                                <div class="confidence-band"></div>
+                                <div class="probability-text" id="probability-text">
+                                    Calculating...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prediction-controls">
+                            <div class="scenario-indicator" id="scenario-indicator">
+                                <span class="scenario-label">Scenario:</span>
+                                <span class="scenario-value" id="scenario-value">Bullish</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prediction-result-container">
+                    <div id="prediction-result" class="prediction-result">
+                        <h3>AI Prediction</h3>
+                        <p>Initializing prediction model...</p>
+                    </div>
+                </div>
+
+                <!-- Floating Data Tooltip -->
+                <div class="tooltip" id="tooltip">
+                    <div class="tooltip-content"></div>
+                </div>
+                
+                <footer>
+                    <p>Trading Animation Visualization | Data is simulated for demonstration purposes</p>
+                </footer>
+            </div>
+        </div>
+        <!-- Error display for debugging -->
+        <div id="error-display" class="error-display"></div>
+        <div class="debug-links">
+            <a href="error-log.html" target="_blank" id="error-log-link">View Error Log</a>
+        </div>
+        <script src="data-generator.js"></script>
+        <script src="chart-renderer.js"></script>
+        <script src="animation-controller.js"></script>
+        <script src="main.js"></script>
+        <script src="debug.js"></script>
+    </body>
+</html>
